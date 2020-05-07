@@ -98,14 +98,14 @@ def trainOneMixupEpoch(model, optimizer, criterion, mixup_criterion, train_loade
         
         # Compute loss twice to compensate for the fact we are effectively halving the batch size
         optimizer.zero_grad() 
-        epsilon = 1 - (np.random.power(1)) * 0.5
+        epsilon = 1 - (np.random.power(1)) * 0.2
         x_inp = epsilon * x1 + (1-epsilon) * x2        
         predictions = model(x_inp)
         loss = mixup_criterion(predictions, y[:middle], y[middle:2*middle], epsilon)
         loss.backward()
         
         permutation = np.random.permutation(x2.shape[0])
-        epsilon = 1- (1 - (np.random.power(1)) * 0.5)
+        epsilon = 1- (1 - (np.random.power(1)) * 0.2)
         x_inp = epsilon * x1 + (1-epsilon) * x2[permutation,:,:,:]        
         predictions = model(x_inp)
         loss = mixup_criterion(predictions, y[:middle], y[middle:2*middle][permutation], epsilon)

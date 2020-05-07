@@ -50,7 +50,7 @@ class ModelManager():
         model = torchvision.models.resnet18(num_classes = self.n_classes).cuda()
         optimizer = optim.Adam(model.parameters(), lr = 5e-4, weight_decay = 0)
         criterion = nn.CrossEntropyLoss()
-        scheduler = optim.lr_scheduler.OneCycleLR(optimizer, 1e-3, epochs = EPOCHS, steps_per_epoch = len(self.unaugmented_traindl))
+        scheduler = optim.lr_scheduler.OneCycleLR(optimizer, 2e-3, epochs = EPOCHS, steps_per_epoch = len(self.unaugmented_traindl))
 
         losses = []
         val_losses = []
@@ -68,7 +68,7 @@ class ModelManager():
         model = torchvision.models.resnet18(num_classes = self.n_classes).cuda()
         optimizer = optim.Adam(model.parameters(), lr = 5e-4, weight_decay = 0)
         criterion = nn.CrossEntropyLoss()
-        scheduler = optim.lr_scheduler.OneCycleLR(optimizer, 1e-3, epochs = EPOCHS, steps_per_epoch = len(self.augmented_traindl))
+        scheduler = optim.lr_scheduler.OneCycleLR(optimizer, 2e-3, epochs = EPOCHS, steps_per_epoch = len(self.augmented_traindl))
 
         losses = []
         val_losses = []
@@ -101,7 +101,7 @@ class ModelManager():
         return losses, val_losses, val_accs
     
     def train_linear(self):
-        model = nn.Linear(self.image_size ** 2 * 3, self.n_classes).cuda()
+        model = nn.Linear(self.img_size ** 2 * 3, self.n_classes).cuda()
         optimizer = optim.Adam(model.parameters(), lr = 1e-4)
         criterion = nn.CrossEntropyLoss()
 
